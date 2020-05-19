@@ -1,0 +1,46 @@
+<html>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style>
+    #output{
+      width: 100px;
+      min-height: 200px;
+      background-color: whitesmoke;
+      float: left;
+    }
+    .btn-list{
+      float: left;
+    }
+  </style>
+  <body>
+    <div id='output'></div>
+
+<div class="btn-list">
+
+  <button id="rock">石头</button>
+  <button id="scissor">剪刀</button>
+  <button id="paper">布</button>
+</div>
+  </body>
+  <script>
+    const outputEl = document.querySelector('#output')
+    const btnList = {
+      rock: document.querySelector('#rock'),
+      scissor: document.querySelector('#scissor'),
+      paper: document.querySelector('#paper')
+    }
+    Object.keys(btnList).forEach(key => {
+      btnList[key].addEventListener('click', function () {
+        // outputEl.innerHTML += key + '<br/>'
+        fetch(`http://${location.host}/game?action=${key}`)
+        .then((res) => {
+          // console.log(res.text(), 'res.text()')
+          return res.text()
+        })
+        .then((text) => {
+          console.log(text, 2222)
+          outputEl.innerHTML += text + '<br/>'
+        })
+      })
+    })
+  </script>
+</html>
